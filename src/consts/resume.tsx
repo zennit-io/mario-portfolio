@@ -147,7 +147,6 @@ export const RESUME = {
   projects: [
     {
       title: "Mektrin Motors",
-      href: "https://mektrin-motors.al",
       active: true,
       description:
         "Mektrin Motors is a prominent car dealership in Albania, specializing in top brands such as Land Rover, Jaguar, Kia, Cranieri, and Volvo. They offer a diverse selection of new and pre-owned vehicles, complemented by personalized service, competitive pricing, and comprehensive after-sales support.",
@@ -159,6 +158,8 @@ export const RESUME = {
           icon: <InternetIcon className="size-3" />,
         },
       ],
+      href: "https://mektrin-motors.al",
+      image: "",
       video: "/mektrin.mp4",
     },
     {
@@ -209,7 +210,6 @@ export const RESUME = {
     {
       title: "Fast Track Tyres",
       href: "https://automatic.chat",
-
       active: true,
       description:
         "Fast Track Tyres is a leading UK business specializing in the swift supply and fitting of high-quality tyres. Known for its efficient service and competitive pricing, Fast Track Tyres caters to a wide range of vehicles, ensuring safety and performance on the road.",
@@ -222,8 +222,7 @@ export const RESUME = {
         },
       ],
       image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
+      video: "/fast-track-tyres.mp4",
     },
     {
       title: "dardanair",
