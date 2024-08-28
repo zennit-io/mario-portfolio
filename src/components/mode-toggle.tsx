@@ -2,21 +2,51 @@
 
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import {MoonIcon, SunIcon} from "@/icons";
+import { MoonIcon, SunIcon } from "@/icons";
+import { flushSync } from "react-dom";
+import { useRef } from "react";
 
 export const ModeToggle = () => {
+  const ref = useRef<HTMLButtonElement | null>(null);
   const { theme, setTheme } = useTheme();
+  const handleThemeSwitch = async () => {
+    if (!ref.current) return;
+    await document.startViewTransition?.(() =>
+      flushSync(() => setTheme(theme === "dark" ? "light" : "dark")),
+    ).ready;
 
+    const { top, left } = ref.current.getBoundingClientRect();
+    const x = left;
+    const y = top;
+
+    const radius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${radius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 500,
+        easing: "ease-in-out",
+        pseudoElement: "::view-transition-new(root)",
+      },
+    );
+  };
   return (
-    <Button
-      variant="ghost"
+    <button
+      ref={ref}
       type="button"
-      size="icon"
       className="px-2"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={handleThemeSwitch}
     >
       <SunIcon className="h-[1.2rem] w-[1.2rem] text-neutral-800 dark:hidden dark:text-neutral-200" />
       <MoonIcon className="hidden h-[1.2rem] w-[1.2rem] text-neutral-800 dark:block dark:text-neutral-200" />
-    </Button>
+    </button>
   );
 };

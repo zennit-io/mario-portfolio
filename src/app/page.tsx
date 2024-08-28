@@ -1,14 +1,15 @@
-import {BlurFade} from "@/components/animations/blur-fade";
-import {BlurFadeText} from "@/components/animations/blur-fade-text";
-import {ResumeCard} from "@/components/resume-card";
-import {Accordion} from "@/components/ui/accordion";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Badge} from "@/components/ui/badge";
-import {RESUME} from "@/consts/resume";
+import { BlurFade } from "@/components/animations/blur-fade";
+import { BlurFadeText } from "@/components/animations/blur-fade-text";
+import { ResumeCard } from "@/components/resume-card";
+import { Accordion } from "@/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { RESUME } from "@/consts/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import {ProjectCard} from "@/components/project-card";
-import {ContactMeForm} from "@/components/contact-me-form";
+import { ProjectCard } from "@/components/project-card";
+import { ContactMeForm } from "@/components/contact-me-form";
+import { Signature } from "@/components/signature";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -114,7 +115,6 @@ export default () => {
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
               >
                 <ProjectCard
-                  href={project.href}
                   key={project.title}
                   title={project.title}
                   description={project.description}
@@ -149,9 +149,9 @@ export default () => {
                 soliciting.
               </p>
             </div>
-
             <ContactMeForm />
           </BlurFade>
+          <Signature className="w-full" />
         </div>
       </section>
     </main>

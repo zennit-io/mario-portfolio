@@ -12,7 +12,7 @@ export const sendEmail = async (
   inquiry: InferredFormFields<typeof signUpFormConfig>,
 ): Promise<Result<string>> => {
   const { error } = await resend.emails.send({
-    from: inquiry.email,
+    from: "mario@mariovukzaj.com",
     to: "mario@mariovukzaj.com",
     subject: `Inquiry from ${inquiry.fullName}`,
     react: EmailTemplate(inquiry),

@@ -1,12 +1,11 @@
-import {Badge} from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
-import type {ReactNode} from "react";
+import type { ReactNode } from "react";
 import Markdown from "react-markdown";
 
 type ProjectType = {
   title: string;
-  href?: string;
   description: string;
   tags: readonly string[];
   link?: string;
@@ -25,14 +24,12 @@ export type ProjectCardProps = ProjectType & {
 
 export const ProjectCard = ({
   title,
-  href,
   description,
   tags,
   link,
   image,
   video,
   links,
-  className,
 }: ProjectCardProps) => {
   return (
     <div

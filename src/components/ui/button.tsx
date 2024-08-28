@@ -290,7 +290,6 @@ export const Button = ({
   className,
   classList,
   disabled,
-  ref,
   color = "emphasis",
   ...props
 }: ButtonProps) => {
