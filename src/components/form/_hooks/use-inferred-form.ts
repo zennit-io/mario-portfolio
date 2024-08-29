@@ -9,7 +9,7 @@ import {
   useForm,
 } from "react-hook-form";
 import type { z } from "zod";
-import type { FormConfig, InferredFormFields } from "../_types";
+import type { FormConfig, InferredRawShape } from "../_types";
 import {
   generateSchema,
   getConfigDefaultValues,
@@ -26,20 +26,20 @@ import {
 
 // todo: make the return schema here be wrapped with ZodEffects, Pipes and what not
 export type UseInferredFormAdditionalParams<T extends FormConfig> = {
-  defaultValues?: Partial<InferredFormFields<T>>;
+  defaultValues?: Partial<InferredRawShape<T>>;
   extend?: (
-    schema: z.ZodSchema<InferredFormFields<T>>,
-  ) => z.ZodSchema<InferredFormFields<T>>; //
+    schema: z.ZodSchema<InferredRawShape<T>>,
+  ) => z.ZodSchema<InferredRawShape<T>>; //
   hideFormFields?: (
-    data: InferredFormFields<T>,
-  ) => Partial<Record<keyof InferredFormFields<T>, boolean>>;
+    data: InferredRawShape<T>,
+  ) => Partial<Record<keyof InferredRawShape<T>, boolean>>;
   props?: Partial<
-    Omit<UseFormProps<InferredFormFields<T>>, "resolver" | "defaultValues">
+    Omit<UseFormProps<InferredRawShape<T>>, "resolver" | "defaultValues">
   >;
 };
 
 export type UseInferredFormWithHideField<T extends FormConfig> = UseFormReturn<
-  InferredFormFields<T>
+  InferredRawShape<T>
 > & {
   // shouldHideField: (
   //   fieldName: keyof InferredFormFields<T>,
@@ -52,15 +52,15 @@ export function useInferredForm<T extends FormConfig>(
   config: T,
   params: UseInferredFormAdditionalParams<T> & {
     hideFormFields: (
-      data: InferredFormFields<T>,
-    ) => Partial<Record<keyof InferredFormFields<T>, boolean>>;
+      data: InferredRawShape<T>,
+    ) => Partial<Record<keyof InferredRawShape<T>, boolean>>;
   },
 ): UseInferredFormWithHideField<T>;
 
 export function useInferredForm<T extends FormConfig>(
   config: T,
   params?: UseInferredFormAdditionalParams<T>,
-): UseFormReturn<InferredFormFields<T>>;
+): UseFormReturn<InferredRawShape<T>>;
 
 export function useInferredForm<T extends FormConfig>(
   config: T,
@@ -71,46 +71,44 @@ export function useInferredForm<T extends FormConfig>(
     props = {},
   }: UseInferredFormAdditionalParams<T> = {},
 ) {
-  const [schema, setSchema] = useState(generateSchema(config));
+  const schema = generateSchema(config);
 
   // const schema = generateSchema(config);
   const extendedSchema = extend?.(schema) ?? schema;
 
-  const form = useForm<InferredFormFields<T>>({
+  const form = useForm<InferredRawShape<T>>({
     // shouldUnregister: true,
     resolver: zodResolver(extendedSchema),
     defaultValues: {
       ...getSchemaDefaultValues(schema),
       ...getConfigDefaultValues(config),
       ...defaultValues,
-    } as DefaultValues<InferredFormFields<T>>,
+    } as DefaultValues<InferredRawShape<T>>,
     ...props,
   });
 
-  console.log("form", form.getValues());
+  // if (hideFormFields) {
+  //   const shouldHideField = (
+  //     fieldName: keyof InferredRawShape<T>,
+  //     data: InferredRawShape<T>,
+  //   ): boolean => {
+  //     const isHiddenField = hideFormFields(data)?.[fieldName] ?? false;
 
-  if (hideFormFields) {
-    const shouldHideField = (
-      fieldName: keyof InferredFormFields<T>,
-      data: InferredFormFields<T>,
-    ): boolean => {
-      const isHiddenField = hideFormFields(data)?.[fieldName] ?? false;
+  //     // if (isHiddenField && fieldName in schema.shape) {
+  //     //   const updatedSchema = schema.omit({ [fieldName]: true });
+  //     //   console.log("updatedSchema", fieldName, updatedSchema);
+  //     //   setSchema(updatedSchema);
+  //     // }
+  //     // todo: readd schema field when the field is no longer hidden
 
-      // if (isHiddenField && fieldName in schema.shape) {
-      //   const updatedSchema = schema.omit({ [fieldName]: true });
-      //   console.log("updatedSchema", fieldName, updatedSchema);
-      //   setSchema(updatedSchema);
-      // }
-      // todo: readd schema field when the field is no longer hidden
+  //     return isHiddenField;
+  //   };
 
-      return isHiddenField;
-    };
-
-    return {
-      ...form,
-      shouldHideField,
-    };
-  }
+  //   return {
+  //     ...form,
+  //     shouldHideField,
+  //   };
+  // }
 
   return form;
 }

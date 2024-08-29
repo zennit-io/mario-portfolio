@@ -204,12 +204,17 @@ const PhoneCountrySelect = ({
               }
             >
               <ChevronDownIcon className={"size-4"} />
-              <motion.span
-                key={phoneNumberComposer.iso}
-                {...textBlurAnimationConfig}
-              >
-                {phoneNumberComposer.iso}
-              </motion.span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={phoneNumberComposer.iso}
+                  {...textBlurAnimationConfig}
+                  transition={{
+                    duration: 0.5,
+                  }}
+                >
+                  {phoneNumberComposer.iso}
+                </motion.span>
+              </AnimatePresence>
             </span>
             <span className="h-[70%] w-px bg-border" />
             <span>+{phoneNumberComposer.metadata.countryCode}</span>

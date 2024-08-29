@@ -6,16 +6,16 @@ import {
   type InferredFieldConfig as InferredFieldConfigPrimitive,
   useInferredForm,
 } from "../../form";
-import type {z} from "zod";
-import type {CheckboxProps} from "../checkbox";
-import type {DatePickerProps} from "../date-picker";
-import type {InputProps} from "../input";
-import type {RadioGroupProps} from "../radio-group";
-import type {SelectProps} from "../select";
-import type {SliderProps} from "../slider";
-import type {SwitchProps} from "../switch";
-import type {TextareaProps} from "../textarea";
-import type {PhoneInputProps} from "@/components/ui/phone-input";
+import type { z } from "zod";
+import type { CheckboxProps } from "../checkbox";
+import type { DatePickerProps } from "../date-picker";
+import type { InputProps } from "../input";
+import type { RadioGroupProps } from "../radio-group";
+import type { SelectProps } from "../select";
+import type { SliderProps } from "../slider";
+import type { SwitchProps } from "../switch";
+import type { TextareaProps } from "../textarea";
+import type { PhoneInputProps } from "@/components/ui/phone-input";
 
 type FieldPropsMap = {
   text: InputProps;
@@ -52,7 +52,7 @@ export type {
   FieldConfig,
   FormConfig,
   InferredSchema,
-  InferredFormFields,
+  InferredRawShape,
   UseInferredFormParams,
   FieldShape,
   FieldValues,

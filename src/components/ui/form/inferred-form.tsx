@@ -1,5 +1,3 @@
-"use client";
-
 import type { UseInferredFormWithHideField } from "../../form";
 import { cn } from "@/utils";
 import type { ReactNode } from "react";
@@ -10,14 +8,18 @@ import {
   type FormConfig,
   InferredFormControl,
   type InferredFormControlProps,
-  type InferredFormFields,
+  type InferredRawShape,
   type UseInferredFormParams,
   useInferredForm,
 } from ".";
 import { Button, type ButtonProps } from "../button";
+import { useFormContext, type UseFormReturn } from "react-hook-form";
 
 export type InferredFormProps<T extends FormConfig> = {
-  onSubmit: (data: InferredFormFields<T>) => void;
+  onSubmit: (
+    data: InferredRawShape<T>,
+    form: UseFormReturn<InferredRawShape<T>>,
+  ) => void;
   config: UseInferredFormParams<T>[0];
   defaultValues?: NonNullable<UseInferredFormParams<T>[1]>["defaultValues"];
   hideFormFields?: NonNullable<UseInferredFormParams<T>[1]>["hideFormFields"];
@@ -42,20 +44,20 @@ export const InferredForm = <T extends FormConfig>({
     ...props,
   });
 
-  const shouldHideField = hideFormFields
-    ? (form as UseInferredFormWithHideField<T>).shouldHideField
-    : undefined;
+  // const shouldHideField = hideFormFields
+  //   ? (form as UseInferredFormWithHideField<T>).shouldHideField
+  //   : undefined;
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((fields) => onSubmit(fields, form))}
         className={cn("flex flex-col gap-2.5", className)}
       >
         {Object.entries(config).map(([key, field]) => (
           <InferredFormControl
             {...(field as InferredFormControlProps<FieldShape, z.ZodType>)}
-            shouldHideFormField={shouldHideField}
+            // shouldHideFormField={shouldHideField}
             key={key}
             name={key}
           />
@@ -66,14 +68,29 @@ export const InferredForm = <T extends FormConfig>({
   );
 };
 
-export const FormSubmitButton = ({
+export type FormSubmitButtonProps<T extends FormConfig> = {
+  onSubmit?: (
+    data: InferredRawShape<T>,
+    form: UseFormReturn<InferredRawShape<T>>,
+  ) => void;
+} & ButtonProps;
+
+export const FormSubmitButton = <T extends FormConfig>({
   variant = "default",
   color = "primary",
   children,
   ...props
-}: ButtonProps) => {
+}: FormSubmitButtonProps<T>) => {
+  const form = useFormContext<InferredRawShape<T>>();
+  if (!form) throw new Error("FormSubmitButton should be used within <Form>");
   return (
-    <Button {...props} variant={variant} color={color} type={"submit"}>
+    <Button
+      {...props}
+      variant={variant}
+      color={color}
+      type={"submit"}
+      data-loading={form.formState.isSubmitting}
+    >
       {children}
     </Button>
   );

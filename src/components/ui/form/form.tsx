@@ -15,10 +15,7 @@ import { Label } from "../label";
 export type FormProps = ComponentProps<typeof FormProvider> &
   ComponentProps<"form">;
 
-// todo: merge FormProvider with html form
-
 export const Form = FormProvider;
-
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,

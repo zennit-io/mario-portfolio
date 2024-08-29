@@ -45,3 +45,4 @@ export * from "./notebook";
 export * from "./link";
 export * from "./send";
 export * from "./send-email";
+export * from "./loading";

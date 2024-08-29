@@ -1,20 +1,33 @@
-import {type FieldShape, getCoreZodType} from "../../form";
-import type {Override} from "@/types";
-import {cn} from "@/utils";
-import {type ControllerRenderProps, useFormContext} from "react-hook-form";
-import {z} from "zod";
-import {Checkbox} from "../checkbox";
-import {DatePicker} from "../date-picker";
-import {Input} from "../input";
-import {Label} from "../label";
-import {RadioGroup, RadioGroupItem} from "../radio-group";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "../select";
-import {Slider} from "../slider";
-import {Switch} from "../switch";
-import {Textarea} from "../textarea";
-import type {FieldShapeConfig, InferredFieldConfig} from "./config";
-import {FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "./form";
-import {PhoneInput} from "@/components/ui/phone-input";
+import { type FieldShape, getCoreZodType } from "../../form";
+import type { Override } from "@/types";
+import { cn } from "@/utils";
+import { type ControllerRenderProps, useFormContext } from "react-hook-form";
+import { z } from "zod";
+import { Checkbox } from "../checkbox";
+import { DatePicker } from "../date-picker";
+import { Input } from "../input";
+import { Label } from "../label";
+import { RadioGroup, RadioGroupItem } from "../radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../select";
+import { Slider } from "../slider";
+import { Switch } from "../switch";
+import { Textarea } from "../textarea";
+import type { FieldShapeConfig, InferredFieldConfig } from "./config";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./form";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const splitCamelCase = (name: string) => name.split(/(?=[A-Z])/).join(" ");
 const INLINE_INPUTS = ["switch", "checkbox"];
@@ -159,8 +172,6 @@ export const InferredFormField = (config: InferredFormFieldsProps) => {
         start: new Date(),
         end: new Date(),
       }).success;
-
-      console.log("isDateRange", isDateRange);
 
       return (
         <DatePicker {...props} type={isDateRange ? "date-range" : "date"} />

@@ -1,14 +1,18 @@
 "use client";
-import {
-  field,
-  FormSubmitButton,
-  InferredForm,
-  type InferredFormFields,
-} from "@/components/ui/form";
-import { z } from "zod";
-import { SendEmailIcon } from "@/icons";
 import { sendEmail } from "@/actions/contact";
+import {
+  FormSubmitButton as FormSubmitButtonPrimitive,
+  InferredForm,
+  type InferredRawShape,
+  field,
+} from "@/components/ui/form";
+import { CheckIcon, LoadingIcon, SendEmailIcon } from "@/icons";
+import { useFormContext, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
+import { z } from "zod";
+import { buildReset } from "./form";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const config = {
   fullName: field({
@@ -37,20 +41,105 @@ const config = {
 };
 
 export const ContactMeForm = () => {
-  const handleSubmit = async (inquiry: InferredFormFields<typeof config>) => {
+  const handleSubmit = async (
+    inquiry: InferredRawShape<typeof config>,
+    form: UseFormReturn<InferredRawShape<typeof config>>,
+  ) => {
     const result = await sendEmail(inquiry);
     if (!result.success) {
       toast.error(result.error.message);
       return;
     }
     toast.success(result.data);
+    // form.reset(buildReset(config));
   };
   return (
     <InferredForm onSubmit={handleSubmit} config={config}>
-      <FormSubmitButton variant={"primary"}>
-        <SendEmailIcon /> Contact Me{" "}
-      </FormSubmitButton>
+      <FormSubmitButton />
     </InferredForm>
+  );
+};
+
+const iconVariants = {
+  exit: {
+    y: "100%",
+    opacity: 0,
+    filter: "blur(10px)",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+  initial: {
+    y: "-100%",
+    opacity: 0,
+    filter: "blur(10px)",
+  },
+  enter: {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    },
+  },
+};
+
+const FormSubmitButton = () => {
+  const form = useFormContext<InferredRawShape<typeof config>>();
+  console.log(form, form.formState.errors, form.getValues());
+  const { isSubmitSuccessful, isSubmitting } = form.formState;
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!isSubmitting && isSubmitSuccessful) {
+      setShowSuccess(true);
+
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isSubmitting, isSubmitSuccessful]);
+  return (
+    <FormSubmitButtonPrimitive variant={"primary"} type={"submit"}>
+      <AnimatePresence mode="wait">
+        {isSubmitting ? (
+          <motion.div
+            key="loading"
+            variants={iconVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <LoadingIcon />
+          </motion.div>
+        ) : showSuccess ? (
+          <motion.div
+            key="success"
+            variants={iconVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <CheckIcon />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="icon"
+            variants={iconVariants}
+            initial="initial"
+            animate="enter"
+            exit="exit"
+          >
+            <SendEmailIcon />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      Contact Me
+    </FormSubmitButtonPrimitive>
   );
 };
 

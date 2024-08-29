@@ -1,8 +1,8 @@
-import type { FormConfig, InferredFormFields } from "../_types";
+import type { FormConfig, InferredRawShape } from "../_types";
 
 export const getConfigDefaultValues = <T extends FormConfig>(
   config: T,
-): Partial<InferredFormFields<T>> => {
+): Partial<InferredRawShape<T>> => {
   const configDefaultValuesArray = Object.entries(config)
     .filter(([, { defaultValue }]) => defaultValue !== undefined)
     .map(([key, { defaultValue }]) => [key, defaultValue]);
