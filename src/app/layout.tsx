@@ -83,7 +83,7 @@ export default ({ children }: LayoutProps) => {
               </ThemeProvider>
             </main>
           </body>
-          // <PostHogPageView />
+          <PostHogPageView />
         </PostHogProvider>
       </html>
     </ViewTransitions>

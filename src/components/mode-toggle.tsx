@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@/icons";
 import { flushSync } from "react-dom";
@@ -10,6 +9,11 @@ export const ModeToggle = () => {
   const ref = useRef<HTMLButtonElement | null>(null);
   const { theme, setTheme } = useTheme();
   const handleThemeSwitch = async () => {
+    if (!document.startViewTransition) {
+      setTheme(theme === "dark" ? "light" : "dark");
+      return;
+    }
+
     if (!ref.current) return;
     await document.startViewTransition?.(() =>
       flushSync(() => setTheme(theme === "dark" ? "light" : "dark")),

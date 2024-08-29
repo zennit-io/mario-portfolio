@@ -46,36 +46,25 @@ export const RESUME = {
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
   ],
   contact: {
-    email: "mariovukzaj@yahoo.com",
+    email: "vukzajmario5@gmail.com",
     tel: "+355688328069",
     social: {
       Instagram: {
         name: "Instagram",
         url: "https://www.instagram.com/vukzajmario/",
         icon: InstagramIcon,
-
         navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/mario-v-95b1111a2/",
         icon: LinkedInIcon,
-
         navbar: true,
       },
       X: {
         name: "X",
         url: "https://x.com/mariovukzaj",
         icon: TwitterIcon,
-
-        navbar: true,
-      },
-
-      email: {
-        name: "Send Email",
-        url: "mariovukzaj@yahoo.com",
-        icon: EmailIcon,
-
         navbar: true,
       },
     },
@@ -87,12 +76,12 @@ export const RESUME = {
       href: "https://zennit.io",
       badges: [],
       location: "Remote",
-      title: "Lead Design Freelancer",
+      title: "Co-Founder & Lead Designer",
       logoUrl: "/zennit.png",
       start: "November 2023",
       end: "Current",
       description:
-        "Implemented the Bitcoin discreet log contract (DLC) protocol specifications as an open source Typescript SDK. Dockerized all microservices and setup production kubernetes cluster. Architected a data lake using AWS S3 and Athena for historical backtesting of bitcoin trading strategies. Built a mobile app using react native and typescript.",
+        "Co-founded Zennit and serve as the Lead Designer, where I drive the creative vision and oversee the design team. I ensure that all products and platforms feature cohesive, user-centered designs that align with our brand identity and business goals.",
     },
     {
       company: "LookUp",
@@ -104,7 +93,7 @@ export const RESUME = {
       start: "February 2023",
       end: "Current",
       description:
-        "Co-developed a prototype iOS app with another intern in Swift for the new Splunk Phantom security orchestration product (later publicly demoed and launched at .conf annual conference in Las Vegas). Implemented a realtime service for the iOS app in Django (Python) and C++; serialized data using protobufs transmitted over gRPC resulting in an approximate 500% increase in data throughput.",
+        "I lead the design and user experience of our app, LookUp, which assists users in finding places for their automobiles to park and charge. I co-founded LookUp. I oversee the creative direction and make sure the user experience is simple and easy to use for the app.",
     },
     {
       company: "Vatra Agency",
@@ -116,7 +105,7 @@ export const RESUME = {
       start: "September 2023",
       end: "June 2024",
       description:
-        "Implemented a custom Kubernetes controller in Go to automate the deployment of MySQL and ProxySQL custom resources in order to enable 2,000+ internal developers to instantly deploy their app databases to production. Wrote several scripts in Go to automate MySQL database failovers while maintaining master-slave replication topologies and keeping Zookeeper nodes consistent with changes.",
+        "Designed and developed intuitive user interfaces and social media content for various digital platforms, creating seamless and engaging experiences that resonated with target audiences and aligned with client objectives.",
     },
     {
       company: "Altech Solutions",
@@ -128,7 +117,7 @@ export const RESUME = {
       start: "February 2022",
       end: "June 2023",
       description:
-        "Architected and wrote the entire MVP of the GeForce Now Cloud Gaming internal admin and A/B testing dashboard using React, Redux, TypeScript, and Python.",
+        "Developed and refined user interface designs and user experiences for multiple high-traffic crypto and online casino platforms, with a strong focus on enhancing user engagement and conversion rates. resulting in a 25% increase in user retention on crypto platforms and a 30% rise in customer satisfaction on casino sites.",
     },
     {
       company: "Polpetto Shoes",
@@ -140,10 +129,9 @@ export const RESUME = {
       start: "September 2021",
       end: "December 2021",
       description:
-        "Co-developed a prototype iOS app with another intern in Swift for the new Splunk Phantom security orchestration product (later publicly demoed and launched at .conf annual conference in Las Vegas). Implemented a realtime service for the iOS app in Django (Python) and C++; serialized data using protobufs transmitted over gRPC resulting in an approximate 500% increase in data throughput.",
+        "I won the ERASMUS Mobility Call in Seville, Spain for three month for an internship and Polpetto Shoes was the company that I worked for.  Kept up-to-date the social media page and website with new design Boosted the store popularity by 22% in Polpetto Shoes website and 14% on social media.",
     },
   ],
-
   projects: [
     {
       title: "Mektrin Motors",
@@ -205,7 +193,7 @@ export const RESUME = {
         },
       ],
       image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
+      video: "/zennit.mp4",
     },
     {
       title: "Fast Track Tyres",
@@ -234,7 +222,7 @@ export const RESUME = {
       technologies: ["Branding", "UI/UX", "3D Modeling"],
 
       image: "",
-      video: "https://cdn.llm.report/openai-demo.mp4",
+      video: "/dardanair.mp4",
     },
     {
       title: "Homemade Heaven",
@@ -246,8 +234,7 @@ export const RESUME = {
       technologies: ["UI/UX"],
 
       image: "",
-      video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
+      video: "/homemade-heaven.mp4",
     },
   ],
 } as const;
