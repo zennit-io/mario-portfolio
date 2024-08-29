@@ -51,7 +51,7 @@ export const ContactMeForm = () => {
       return;
     }
     toast.success(result.data);
-    // form.reset(buildReset(config));
+    form.reset(buildReset(config));
   };
   return (
     <InferredForm onSubmit={handleSubmit} config={config}>
@@ -114,7 +114,7 @@ const FormSubmitButton = () => {
             animate="enter"
             exit="exit"
           >
-            <LoadingIcon />
+            <LoadingIcon className="animate-spin" />
           </motion.div>
         ) : showSuccess ? (
           <motion.div
