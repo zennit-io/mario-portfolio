@@ -5,4 +5,10 @@ export type InferredSchema<T extends FormConfig> = z.ZodObject<{
   [K in keyof T]: T[K]["constraint"];
 }>;
 
-export type InferredRawShape<T extends FormConfig> = z.infer<InferredSchema<T>>;
+export type InferredFormFields<T extends FormConfig> = z.infer<
+  InferredSchema<T>
+>;
+
+// export type InferredFormFieldNames<T extends FormConfig> = keyof {
+//   [K in keyof T]: T[K]["constraint"];
+// };

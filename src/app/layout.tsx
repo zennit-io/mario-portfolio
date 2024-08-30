@@ -7,10 +7,10 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import "./globals.css";
+import { PostHogProvider } from "@/components/posthog-provider";
+import { Toaster } from "@/components/ui/toaster";
 import type { LayoutProps } from "@/types";
 import { ViewTransitions } from "next-view-transitions";
-import { Toaster } from "@/components/ui/toaster";
-import { PostHogProvider } from "@/components/posthog-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(RESUME.url),

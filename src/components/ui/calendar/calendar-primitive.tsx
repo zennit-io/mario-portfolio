@@ -1,6 +1,6 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
-import { ChevronLeftIcon, ChevronRightIcon } from "@/icons";
 import {
   addMonths,
   eachDayOfInterval,

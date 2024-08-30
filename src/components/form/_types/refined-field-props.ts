@@ -2,7 +2,6 @@ type OmittableKeys =
   | "name"
   | "ref"
   | "value"
-  | "type"
   | "defaultValue"
   | "children"
   | "onChange"

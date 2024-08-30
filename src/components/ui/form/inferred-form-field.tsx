@@ -1,12 +1,14 @@
-import { type FieldShape, getCoreZodType } from "../../form";
 import type { Override } from "@/types";
 import { cn } from "@/utils";
 import { type ControllerRenderProps, useFormContext } from "react-hook-form";
 import { z } from "zod";
+import { type FieldShape, getCoreZodType } from "../../form";
 import { Checkbox } from "../checkbox";
 import { DatePicker } from "../date-picker";
+import { FileUploader } from "../file-uploader";
 import { Input } from "../input";
 import { Label } from "../label";
+import { PhoneInput } from "../phone-input";
 import { RadioGroup, RadioGroupItem } from "../radio-group";
 import {
   Select,
@@ -27,7 +29,6 @@ import {
   FormLabel,
   FormMessage,
 } from "./form";
-import { PhoneInput } from "@/components/ui/phone-input";
 
 const splitCamelCase = (name: string) => name.split(/(?=[A-Z])/).join(" ");
 const INLINE_INPUTS = ["switch", "checkbox"];
@@ -44,15 +45,16 @@ export const InferredFormControl = <S extends FieldShape, T extends z.ZodType>({
   shouldHideFormField,
   ...props
 }: InferredFormControlProps<S, T>) => {
-  const { watch, unregister } = useFormContext();
+  const { watch } = useFormContext();
   const formData = watch();
   const isHiddenField = shouldHideFormField?.(props.name, formData);
+
+  if (isHiddenField) return null;
 
   return (
     <FormField
       name={props.name}
-      disabled={isHiddenField} // breaks input like switch,slider
-      shouldUnregister
+      disabled={props.disabled}
       render={({ field }) => (
         <FormItem>
           <div
@@ -93,15 +95,15 @@ export const InferredFormField = (config: InferredFormFieldsProps) => {
       return <Input {...props} />;
     case "textarea":
       return <Textarea {...props} />;
-
+    case "phone":
+      return <PhoneInput {...props} />;
     case "switch":
       return <Switch {...props} />;
     case "checkbox":
       return <Checkbox {...props} />;
     case "slider": {
       const isRangeSlider = props.constraint.safeParse([1, 2]).success;
-      const min = props.min;
-      const max = props.max;
+      const { min, max, value } = props;
 
       return (
         <>
@@ -109,8 +111,8 @@ export const InferredFormField = (config: InferredFormFieldsProps) => {
             {...props}
             value={
               isRangeSlider
-                ? [props.value?.[0] ?? min, props.value?.[1] ?? max]
-                : [props.value ?? min]
+                ? [value?.[0] ?? min, value?.[1] ?? max]
+                : [value ?? min]
             }
             onChange={() => {}}
             onValueChange={(values) => {
@@ -120,16 +122,18 @@ export const InferredFormField = (config: InferredFormFieldsProps) => {
 
           {isRangeSlider && (
             <div className={"mt-2 flex w-full justify-between text-2xs"}>
-              <span>{props.value?.[0] ?? min}</span>
-              <span>{props.value?.[1] ?? max}</span>
+              <span>{value?.[0] ?? min}</span>
+              <span>{value?.[1] ?? max}</span>
             </div>
           )}
         </>
       );
     }
-
+    case "file":
+      return <FileUploader {...props} />;
     case "select": {
       const options = getCoreZodType(props.constraint).options;
+
       return (
         <Select {...props} onValueChange={props.onChange}>
           <SelectTrigger>
@@ -148,19 +152,23 @@ export const InferredFormField = (config: InferredFormFieldsProps) => {
         </Select>
       );
     }
-    case "phone-number": {
-      return <PhoneInput {...props} />;
-    }
     case "radio-group": {
       const options = getCoreZodType(props.constraint).options;
       const { optionLabels, ...inputProps } = props;
+
       return (
         <RadioGroup {...inputProps} onValueChange={props.onChange}>
           {options.map((option) => (
-            <div key={option} className="flex items-center gap-x-2">
+            <div
+              key={option}
+              className={cn(
+                "flex cursor-pointer items-center gap-x-2",
+                props.disabled && "cursor-not-allowed opacity-50",
+              )}
+            >
               <RadioGroupItem value={option} id={option} />
-              <Label htmlFor={option}>
-                {props.optionLabels?.[option] ?? option}
+              <Label htmlFor={option} className="cursor-[inherit]">
+                {optionLabels?.[option] ?? option}
               </Label>
             </div>
           ))}

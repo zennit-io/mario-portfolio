@@ -1,12 +1,12 @@
 import { z } from "zod";
-import type { FormConfig, InferredRawShape, InferredSchema } from "../_types";
+import type { FormConfig, InferredFormFields, InferredSchema } from "../_types";
 
 export const getSchemaDefaultValues = <
   T extends FormConfig,
   S extends InferredSchema<T>,
 >(
   schema: S,
-): Partial<InferredRawShape<T>> => {
+): Partial<InferredFormFields<T>> => {
   const schemaDefaultValuesArray = Object.entries(schema.shape)
     .map(([key, value]) => {
       if (value instanceof z.ZodDefault) {

@@ -1,4 +1,5 @@
-import type { Tuple } from "@/types";
+import type { RefinedFieldProps } from "@/components/form";
+import type { PartialFields, RequiredFields, Tuple } from "@/types";
 import type { z } from "zod";
 import type { CoreType } from "./core-type";
 import type {
@@ -7,7 +8,6 @@ import type {
   FieldShape,
   FieldShapePropsMap,
 } from "./field-shape";
-import type { RefinedFieldProps } from "./refined-field-props";
 
 export type FieldConfig = {
   shape: FieldShape;
@@ -36,13 +36,32 @@ export type InferredFieldConfig<
     constraint: CoreType<T> extends BaseFieldShapeConfigMap[S]["constraint"]
       ? T
       : BaseFieldShapeConfigMap[S]["constraint"];
-
     defaultValue?: z.infer<T>;
     label?: string;
-    // hidden?: undefined extends z.infer<T> ? string : number;
     description?: string;
   } & (CoreType<T> extends z.ZodEnum<Tuple<string>>
     ? {
         optionLabels?: Partial<Record<NonNullable<z.infer<T>>, string>>;
       }
-    : Record<never, never>);
+    : Record<never, never>) &
+  (S extends "date" ? InferredCalendarProps<M, T> : Record<never, never>);
+
+type InferredCalendarProps<
+  M extends FieldShapePropsMap,
+  T extends z.ZodType,
+> = PartialFields<
+  Extract<
+    RequiredFields<M["date"], "type">,
+    {
+      type: CalendarType<T>;
+    }
+  >,
+  "type"
+>;
+
+type CalendarType<T extends z.ZodType> = NonNullable<
+  Pick<
+    Extract<BaseFieldShapeConfigMap["date"], { constraint: CoreType<T> }>,
+    "type"
+  >["type"]
+>;

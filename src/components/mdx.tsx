@@ -1,9 +1,9 @@
-import Link from "next/link";
+import { BlurFade } from "@/components/animations/blur-fade";
+import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
 import Image from "next/image";
-import {MDXRemote, type MDXRemoteProps} from "next-mdx-remote/rsc";
-import {highlight} from "sugar-high";
-import {type ComponentProps, createElement} from "react";
-import {BlurFade} from "@/components/animations/blur-fade";
+import Link from "next/link";
+import { type ComponentProps, createElement } from "react";
+import { highlight } from "sugar-high";
 
 type TableProps = {
   data: {

@@ -1,11 +1,11 @@
 "use client";
 
+import { XIcon } from "@/icons";
+import type { ClassList } from "@/types";
+import { cn } from "@/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import type {ClassList} from "@/types";
-import {cn} from "@/utils";
-import {XIcon} from "@/icons";
-import type {ComponentProps} from "react";
-import {popoverContentVariants} from "../_styles/popover";
+import type { ComponentProps } from "react";
+import { popoverContentVariants } from "../_styles/popover";
 
 export type DialogProps = ComponentProps<typeof DialogPrimitive.Root>;
 

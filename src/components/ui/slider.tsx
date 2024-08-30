@@ -1,8 +1,8 @@
 "use client";
 
-import * as SliderPrimitive from "@radix-ui/react-slider";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 import type { ComponentProps, Ref } from "react";
 
 type ClassListKey = "root" | "track" | "range" | "thumb";

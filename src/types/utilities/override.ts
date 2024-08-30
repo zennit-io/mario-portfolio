@@ -1,4 +1,4 @@
-type ObjectPlaceholder = Record<string, unknown>;
+type ObjectPlaceholder = Record<string, any>;
 
 export type Override<
   T1 extends ObjectPlaceholder,

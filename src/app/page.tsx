@@ -1,15 +1,15 @@
 import { BlurFade } from "@/components/animations/blur-fade";
 import { BlurFadeText } from "@/components/animations/blur-fade-text";
+import { ContactMeForm } from "@/components/contact-me-form";
+import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
+import { Signature } from "@/components/signature";
 import { Accordion } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { RESUME } from "@/consts/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
-import { ProjectCard } from "@/components/project-card";
-import { ContactMeForm } from "@/components/contact-me-form";
-import { Signature } from "@/components/signature";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -128,9 +128,9 @@ export default () => {
         </div>
       </section>
       <section id="contact">
-        <div className="grid w-full items-center justify-center gap-4 px-4 py-12  md:px-6">
+        <div className="grid w-full items-center justify-center gap-4 px-4 py-12 md:px-6">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
-            <div className="space-y-3 mb-4 text-center">
+            <div className="mb-4 space-y-3 text-center">
               <div className="inline-block rounded-lg bg-foreground px-3 py-1 text-background text-sm">
                 Contact
               </div>

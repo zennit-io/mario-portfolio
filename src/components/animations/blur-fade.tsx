@@ -1,7 +1,12 @@
 "use client";
 
-import {AnimatePresence, motion, useInView, type Variants,} from "framer-motion";
-import {type ReactNode, useRef} from "react";
+import {
+  AnimatePresence,
+  type Variants,
+  motion,
+  useInView,
+} from "framer-motion";
+import { type ReactNode, useRef } from "react";
 
 type MarginValue = `${number}${"px" | "%"}`;
 type BlurFadeProps = {

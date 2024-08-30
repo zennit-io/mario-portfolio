@@ -1,32 +1,34 @@
+import type { z } from "zod";
 import {
-  field as fieldPrimitive,
   type FieldShape,
   type FieldShapeConfig as FieldShapeConfigPrimitive,
   type FormShapeConfig as FormShapeConfigPrimitive,
   type InferredFieldConfig as InferredFieldConfigPrimitive,
+  field as fieldPrimitive,
   useInferredForm,
 } from "../../form";
-import type { z } from "zod";
 import type { CheckboxProps } from "../checkbox";
 import type { DatePickerProps } from "../date-picker";
+import type { FileUploaderProps } from "../file-uploader";
 import type { InputProps } from "../input";
+import type { PhoneInputProps } from "../phone-input";
 import type { RadioGroupProps } from "../radio-group";
 import type { SelectProps } from "../select";
 import type { SliderProps } from "../slider";
 import type { SwitchProps } from "../switch";
 import type { TextareaProps } from "../textarea";
-import type { PhoneInputProps } from "@/components/ui/phone-input";
 
 type FieldPropsMap = {
   text: InputProps;
   textarea: TextareaProps;
+  phone: PhoneInputProps;
   select: SelectProps;
   "radio-group": RadioGroupProps;
   switch: SwitchProps;
   checkbox: CheckboxProps;
   slider: SliderProps;
+  file: FileUploaderProps;
   date: DatePickerProps;
-  "phone-number": PhoneInputProps;
 };
 
 export type FormShapeConfig = FormShapeConfigPrimitive<FieldPropsMap>;
@@ -47,13 +49,13 @@ export const field = <S extends FieldShape, T extends z.ZodType>(
   return fieldPrimitive<FieldPropsMap, S, T>(...params);
 };
 
-export { useInferredForm };
 export type {
   FieldConfig,
-  FormConfig,
-  InferredSchema,
-  InferredRawShape,
-  UseInferredFormParams,
   FieldShape,
   FieldValues,
+  FormConfig,
+  InferredFormFields,
+  InferredSchema,
+  UseInferredFormParams,
 } from "../../form";
+export { useInferredForm };

@@ -1,8 +1,8 @@
 import "./view-transitions.css";
-import {getAllPosts} from "@/actions/blog";
-import {BlurFade} from "@/components/animations/blur-fade";
-import {Link} from "next-view-transitions";
-import {formatDate} from "@/utils";
+import { getAllPosts } from "@/actions/blog";
+import { BlurFade } from "@/components/animations/blur-fade";
+import { formatDate } from "@/utils";
+import { Link } from "next-view-transitions";
 
 export const metadata = {
   title: "Blog",
@@ -34,8 +34,10 @@ export default async function BlogPage() {
               className="mb-4 flex flex-col space-y-1"
               href={`/blog/${post.slug}`}
             >
-              <div className="flex w-full flex-col title">
-                <p className="font-medium text-2xl tracking-tight">{post.metadata.title}</p>
+              <div className="title flex w-full flex-col">
+                <p className="font-medium text-2xl tracking-tight">
+                  {post.metadata.title}
+                </p>
                 <p className="h-6 text-muted-foreground text-xs">
                   {formatDate(post.metadata.publishedAt)}
                 </p>

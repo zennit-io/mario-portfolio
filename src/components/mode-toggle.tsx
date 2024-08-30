@@ -1,9 +1,9 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { MoonIcon, SunIcon } from "@/icons";
-import { flushSync } from "react-dom";
+import { useTheme } from "next-themes";
 import { useRef } from "react";
+import { flushSync } from "react-dom";
 
 export const ModeToggle = () => {
   const ref = useRef<HTMLButtonElement | null>(null);

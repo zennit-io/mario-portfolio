@@ -1,5 +1,10 @@
+import { ChevronDownIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { type ChangeEvent, type ClipboardEvent, useRef, useState } from "react";
+import type { ControllerRenderProps } from "react-hook-form";
+import { textBlurAnimationConfig } from "../_animations";
 import {
   type ISO,
   type PhoneNumberType,
@@ -7,11 +12,6 @@ import {
   phoneNumberMap,
   refinePhoneNumber,
 } from "../phone-number";
-import { ChevronDownIcon } from "@/icons";
-import { AnimatePresence, motion } from "framer-motion";
-import { type ChangeEvent, type ClipboardEvent, useRef, useState } from "react";
-import type { ControllerRenderProps } from "react-hook-form";
-import { textBlurAnimationConfig } from "../_animations";
 import { inputRootVariants } from "./input";
 import {
   Select,

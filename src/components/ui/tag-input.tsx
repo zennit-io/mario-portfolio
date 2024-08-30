@@ -1,9 +1,9 @@
 "use client";
 
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { XIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
-import { XIcon } from "@/icons";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import * as CommandPrimitive from "cmdk";
 import { type KeyboardEvent, useCallback, useRef, useState } from "react";
 import { popoverContentVariants } from "../_styles/popover";

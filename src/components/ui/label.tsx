@@ -1,7 +1,7 @@
 "use client";
 
-import * as LabelPrimitive from "@radix-ui/react-label";
 import { cn } from "@/utils";
+import * as LabelPrimitive from "@radix-ui/react-label";
 import { type VariantProps, cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 

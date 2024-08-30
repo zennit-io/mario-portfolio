@@ -1,12 +1,14 @@
-import type {Tuple} from "@/types";
-import type {z} from "zod";
-import type {RefinedFieldProps} from "./refined-field-props";
+import type { Props, Tuple } from "@/types";
+import { z } from "zod";
+import type { RefinedFieldProps } from "./refined-field-props";
 
 type ZodFile = z.ZodType<File, z.ZodTypeDef, File>;
-type ZodDateRange = z.ZodObject<{
-  start: z.ZodDate;
-  end: z.ZodDate;
-}>;
+
+const zodDateRangeSchema = z.object({
+  start: z.date(),
+  end: z.date(),
+});
+type ZodDateRange = typeof zodDateRangeSchema;
 
 export type BaseFieldShapeConfigMap = {
   text: {
@@ -14,6 +16,9 @@ export type BaseFieldShapeConfigMap = {
     type?: "text" | "number" | "password";
   };
   textarea: {
+    constraint: z.ZodString;
+  };
+  phone: {
     constraint: z.ZodString;
   };
   select: {
@@ -36,17 +41,23 @@ export type BaseFieldShapeConfigMap = {
     min: number;
     max: number;
   };
-  date: {
-    constraint: z.ZodDate | ZodDateRange;
+  file: {
+    constraint: z.ZodArray<ZodFile>;
   };
-  "phone-number": {
-    constraint: z.ZodString;
-  };
+  date:
+    | {
+        constraint: z.ZodDate;
+        type?: "date";
+      }
+    | {
+        constraint: ZodDateRange;
+        type?: "date-range";
+        // hello: string;
+      };
 };
 
 export type FieldShape = keyof BaseFieldShapeConfigMap;
-// biome-ignore lint/suspicious/noExplicitAny: this is okay, there are no other types that better describe this
-export type FieldProps = Record<string, any>;
+export type FieldProps = Props;
 export type FieldShapePropsMap = Record<FieldShape, FieldProps>;
 
 export type FieldShapeConfigMap<M extends FieldShapePropsMap> = {

@@ -3,22 +3,23 @@ import { sendEmail } from "@/actions/contact";
 import {
   FormSubmitButton as FormSubmitButtonPrimitive,
   InferredForm,
-  type InferredRawShape,
+  type InferredFormFields,
   field,
 } from "@/components/ui/form";
 import { CheckIcon, LoadingIcon, SendEmailIcon } from "@/icons";
-import { useFormContext, type UseFormReturn } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-import { buildReset } from "./form";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { type UseFormReturn, useFormContext } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { buildDefaultValues } from "./form";
 
 const config = {
   fullName: field({
     shape: "text",
     label: "Full Name",
-    constraint: z.string(),
+    constraint: z.number(),
+    type: "number",
   }),
   email: field({
     shape: "text",
@@ -27,7 +28,7 @@ const config = {
     constraint: z.string().email(),
   }),
   phoneNumber: field({
-    shape: "phone-number",
+    shape: "phone",
     label: "Phone Number",
     description: "Optional.",
     constraint: z.string().optional(),
@@ -42,8 +43,8 @@ const config = {
 
 export const ContactMeForm = () => {
   const handleSubmit = async (
-    inquiry: InferredRawShape<typeof config>,
-    form: UseFormReturn<InferredRawShape<typeof config>>,
+    inquiry: InferredFormFields<typeof config>,
+    form: UseFormReturn<InferredFormFields<typeof config>>,
   ) => {
     const result = await sendEmail(inquiry);
     if (!result.success) {
@@ -51,7 +52,7 @@ export const ContactMeForm = () => {
       return;
     }
     toast.success(result.data);
-    form.reset(buildReset(config));
+    form.reset(buildDefaultValues(config));
   };
   return (
     <InferredForm onSubmit={handleSubmit} config={config}>
@@ -87,8 +88,7 @@ const iconVariants = {
 };
 
 const FormSubmitButton = () => {
-  const form = useFormContext<InferredRawShape<typeof config>>();
-  console.log(form, form.formState.errors, form.getValues());
+  const form = useFormContext<InferredFormFields<typeof config>>();
   const { isSubmitSuccessful, isSubmitting } = form.formState;
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -143,4 +143,4 @@ const FormSubmitButton = () => {
   );
 };
 
-export { config as signUpFormConfig };
+export { config as inquiry };

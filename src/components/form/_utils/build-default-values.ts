@@ -1,6 +1,6 @@
 import type { FieldShape, FormConfig } from "../_types";
 
-export const buildReset = <T extends FormConfig>(config: T) => {
+export const buildDefaultValues = (config: FormConfig) => {
   return Object.fromEntries(
     Object.entries(config).map(([key, field]) => {
       if (field.defaultValue !== undefined) {
@@ -26,7 +26,7 @@ const getFieldDefaultValueFromShape = (shape: FieldShape) => {
       return 0;
     case "date":
       return new Date();
-    case "phone-number":
+    case "phone":
       return "";
   }
 };

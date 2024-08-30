@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/utils";
 import { SearchIcon } from "@/icons";
+import { cn } from "@/utils";
 import { Command as CommandPrimitive } from "cmdk";
 import type { ComponentProps } from "react";
 import { popoverContentVariants } from "../_styles/popover";

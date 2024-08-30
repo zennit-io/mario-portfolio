@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { usePostHog } from "posthog-js/react";
+import { useEffect } from "react";
 
 const PostHogPageView = (): null => {
   const pathname = usePathname();

@@ -1,15 +1,15 @@
 "use server";
 
-import type { signUpFormConfig } from "@/components/contact-me-form";
+import type { inquiry as inquiryFormConfig } from "@/components/contact-me-form";
 import { EmailTemplate } from "@/components/email/email-template";
-import type { InferredRawShape } from "@/components/form";
+import type { InferredFormFields } from "@/components/form";
 import type { Result } from "@/types/domain/result";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async (
-  inquiry: InferredRawShape<typeof signUpFormConfig>,
+  inquiry: InferredFormFields<typeof inquiryFormConfig>,
 ): Promise<Result<string>> => {
   const { error } = await resend.emails.send({
     from: "mario@mariovukzaj.com",

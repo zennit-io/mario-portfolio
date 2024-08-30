@@ -1,6 +1,6 @@
+import { cn } from "@/utils";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@/utils";
 import { type ComponentProps, createContext, useContext, useId } from "react";
 import {
   Controller,
@@ -15,7 +15,10 @@ import { Label } from "../label";
 export type FormProps = ComponentProps<typeof FormProvider> &
   ComponentProps<"form">;
 
+// todo: merge FormProvider with html form
+
 export const Form = FormProvider;
+
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -141,8 +144,22 @@ export const FormMessage = ({
   children,
   ...props
 }: FormMessageProps) => {
-  const { error, formMessageId } = useFormField();
-  const body = error ? String(error?.message) : children;
+  const { error: fieldError, formMessageId } = useFormField();
+  let errorMessage = fieldError ? String(fieldError?.message) : children;
+
+  if (typeof fieldError === "object" && !fieldError?.message) {
+    // if field is object and has property errors
+    for (const key in fieldError) {
+      const fieldPropertyError = fieldError[key as keyof typeof fieldError];
+      if (
+        typeof fieldPropertyError === "object" &&
+        "message" in fieldPropertyError
+      ) {
+        errorMessage = fieldPropertyError.message;
+        break;
+      }
+    }
+  }
 
   return (
     <p
@@ -150,7 +167,7 @@ export const FormMessage = ({
       className={cn("h-3 font-body font-medium text-2xs text-error", className)}
       {...props}
     >
-      {body ?? " "}
+      {errorMessage ?? " "}
     </p>
   );
 };

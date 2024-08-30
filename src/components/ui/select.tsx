@@ -1,12 +1,15 @@
 "use client";
 
-import * as SelectPrimitive from "@radix-ui/react-select";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "@/icons";
+import * as SelectPrimitive from "@radix-ui/react-select";
 import { type VariantProps, cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { popoverContentVariants, popoverItemVariants } from "../_styles/popover";
+import {
+  popoverContentVariants,
+  popoverItemVariants,
+} from "../_styles/popover";
 
 export type SelectProps = ComponentProps<typeof Select>;
 export const Select = SelectPrimitive.Root;
@@ -59,7 +62,7 @@ export const SelectTrigger = ({
         <p
           className={cn(
             "max-w-[calc(100%-theme(spacing.4))] truncate",
-            classList?.content
+            classList?.content,
           )}
         >
           {children}
@@ -89,7 +92,7 @@ export const SelectScrollUpButton = ({
     className={cn(
       "flex cursor-default items-center justify-center border-accent-foreground/50 border-b py-1",
       className,
-      classList?.button
+      classList?.button,
     )}
     {...props}
   >
@@ -110,7 +113,7 @@ export const SelectScrollDownButton = ({
     className={cn(
       "!border-t flex cursor-default items-center justify-center border-accent-foreground/50 py-1",
       className,
-      classList?.button
+      classList?.button,
     )}
     {...props}
   >
@@ -143,7 +146,7 @@ export const SelectContent = ({
         position === "popper" &&
           "data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1",
         className,
-        classList?.content
+        classList?.content,
       )}
       position={position}
       {...props}
@@ -153,7 +156,7 @@ export const SelectContent = ({
         className={cn(
           "divide-y divide-accent-foreground/50",
           position === "popper" &&
-            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
         )}
       >
         {children}
@@ -183,7 +186,7 @@ export const SelectItem = ({
     className={cn(
       popoverItemVariants(),
       "w-full pr-8 text-sm outline-none focus:bg-background-dimmed focus:text-foreground-rich data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      className
+      className,
     )}
     {...props}
   >

@@ -1,9 +1,9 @@
 "use client";
 
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { CheckIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
-import { CheckIcon } from "@/icons";
+import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import type { ComponentProps } from "react";
 
 export type RadioGroupProps = ComponentProps<typeof RadioGroupPrimitive.Root>;

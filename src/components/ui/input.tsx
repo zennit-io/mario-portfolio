@@ -1,8 +1,9 @@
 "use client";
 
-import type { ClassList, Icon } from "@/types";
-import { cn } from "@/utils";
 import { EyeClosedIcon, EyeIcon } from "@/icons";
+import type { ClassList, Icon, Override } from "@/types";
+import { cn } from "@/utils";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, useState } from "react";
 
@@ -38,7 +39,14 @@ export type InputProps = {
   EndDecorator?: Icon;
   onTextChange?: (text: string) => void;
   classList?: ClassList<InputClassListKey>;
-} & ComponentProps<"input"> &
+} & Override<
+  ComponentProps<"input">,
+  {
+    value?: string;
+    defaultValue?: string;
+    onChange?: (value: string) => void;
+  }
+> &
   VariantProps<typeof inputRootVariants>;
 
 export const Input = ({
@@ -51,8 +59,18 @@ export const Input = ({
   variant,
   type,
   onChange,
+  defaultValue = "",
+  value: inheritedValue,
   ...props
 }: InputProps) => {
+  const [value = "", setValue] = useControllableState({
+    prop: inheritedValue,
+    defaultProp: defaultValue,
+    onChange: (value) => {
+      onChange?.(value);
+      onTextChange?.(value);
+    },
+  });
   const [passwordHidden, setPasswordHidden] = useState(type === "password");
 
   return (
@@ -62,18 +80,15 @@ export const Input = ({
         className,
         classList?.root,
       )}
-      // tabIndex={0}
     >
       {StartDecorator && <StartDecorator className={"size-5"} />}
       <input
         {...props}
-        onChange={(event) => {
-          onChange?.(event);
-          onTextChange?.(event.target.value);
-        }}
+        onChange={(event) => setValue(event.target.value)}
         type={
           type === "password" ? (passwordHidden ? "password" : "text") : type
         }
+        value={value}
         disabled={disabled}
         className={cn(inputVariants({ variant }), classList?.input)}
       />

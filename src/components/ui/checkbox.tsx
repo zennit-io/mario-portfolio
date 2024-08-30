@@ -1,9 +1,9 @@
 "use client";
 
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { CheckIcon } from "@/icons";
 import type { ClassList } from "@/types";
 import { cn } from "@/utils";
-import { CheckIcon } from "@/icons";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import type { ComponentProps } from "react";
 
 export type CheckboxClassListKey = "root" | "indicator";
