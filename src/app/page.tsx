@@ -7,9 +7,14 @@ import { Signature } from "@/components/signature";
 import { Accordion } from "@/components/ui/accordion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { RESUME } from "@/consts/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
+import { DialogOverlay } from "@/components/ui/dialog";
+import Image from "next/image";
+import { XIcon } from "@/icons";
+import { ProjectDialog } from "@/components/project-dialog";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -114,14 +119,23 @@ export default () => {
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
               >
-                <ProjectCard
-                  key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  tags={project.technologies}
-                  image={project.image}
-                  video={project.video}
-                />
+                <DialogPrimitive.Dialog>
+                  <DialogPrimitive.DialogTrigger>
+                    <ProjectCard key={project.title} {...project} />
+                  </DialogPrimitive.DialogTrigger>
+                  <DialogPrimitive.DialogPortal>
+                    <DialogOverlay />
+                    <DialogPrimitive.DialogClose asChild>
+                      <button
+                        type="button"
+                        className="fixed top-4 right-4 z-[500] rounded-full p-1 bg-background "
+                      >
+                        <XIcon />
+                      </button>
+                    </DialogPrimitive.DialogClose>
+                    <ProjectDialog {...project} />
+                  </DialogPrimitive.DialogPortal>
+                </DialogPrimitive.Dialog>
               </BlurFade>
             ))}
           </div>

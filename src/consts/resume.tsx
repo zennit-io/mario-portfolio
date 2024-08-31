@@ -1,15 +1,13 @@
 import {
-  EmailIcon,
-  GithubIcon,
   HomeIcon,
   InstagramIcon,
-  InternetIcon,
   LinkedInIcon,
   NotebookIcon,
   TwitterIcon,
 } from "@/icons";
+import type { Icon } from "@/types";
 
-export const RESUME = {
+export const RESUME: Resume = {
   name: "Mario Vukzaj",
   initials: "MV",
   url: "https://mariovukzaj.com",
@@ -135,106 +133,115 @@ export const RESUME = {
   projects: [
     {
       title: "Mektrin Motors",
-      active: true,
       description:
         "Mektrin Motors is a prominent car dealership in Albania, specializing in top brands such as Land Rover, Jaguar, Kia, Cranieri, and Volvo. They offer a diverse selection of new and pre-owned vehicles, complemented by personalized service, competitive pricing, and comprehensive after-sales support.",
-      technologies: ["UI/UX"],
-      links: [
-        {
-          type: "Website",
-          href: "https://mektrin.al",
-          icon: <InternetIcon className="size-3" />,
-        },
-      ],
-      href: "https://mektrin-motors.al",
-      image: "",
+      tags: ["UI/UX"],
       video: "/mektrin.mp4",
+      studyCase: "/cases/mektrin.pdf",
     },
     {
       title: "LookUp",
-      href: "https://lookup-parking.com",
-      active: true,
       description:
         "LookUp is an innovative startup focused on simplifying urban mobility by helping users find parking spaces and electric vehicle charging stations. The app streamlines the search process, making it easier for drivers to locate convenient spots and charge their cars efficiently.",
-      technologies: ["UI/UX", "Branding", "Social Media"],
-      links: [
-        {
-          type: "Website",
-          href: "https://magicui.design",
-          icon: <InternetIcon className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/magicuidesign/magicui",
-          icon: <GithubIcon className="size-3" />,
-        },
-      ],
-      image: "",
+      tags: ["UI/UX", "Branding", "Social Media"],
       video: "/lookup.mp4",
+      studyCase: "/cases/lookup.pdf",
     },
     {
       title: "zennit",
-      href: "https://llm.report",
-
-      active: true,
       description:
         "At Zennit, we create custom software solutions that are suited to your specific requirements in order to bring your ideas to life. Experience the highest level of software development brilliance by collaborating with us.",
-      technologies: ["Branding", "UI/UX", "3D Modeling", "Digital Marketing"],
-      links: [
-        {
-          type: "Website",
-          href: "https://llm.report",
-          icon: <InternetIcon className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
-          icon: <GithubIcon className="size-3" />,
-        },
-      ],
-      image: "",
+      tags: ["Branding", "UI/UX", "3D Modeling", "Digital Marketing"],
       video: "/zennit.mp4",
+      studyCase: "/cases/zennit.pdf",
     },
     {
       title: "Fast Track Tyres",
-      href: "https://automatic.chat",
-      active: true,
       description:
         "Fast Track Tyres is a leading UK business specializing in the swift supply and fitting of high-quality tyres. Known for its efficient service and competitive pricing, Fast Track Tyres caters to a wide range of vehicles, ensuring safety and performance on the road.",
-      technologies: ["Next.js", "Typescript", "PostgreSQL", "Prisma"],
-      links: [
-        {
-          type: "Website",
-          href: "https://automatic.chat",
-          icon: <InternetIcon className="size-3" />,
-        },
-      ],
-      image: "",
+      tags: ["Branding"],
       video: "/fast-track-tyres.mp4",
+      studyCase: "/cases/fast-track-tyres.pdf",
     },
     {
       title: "dardanair",
-      href: "https://llm.report",
-
-      active: true,
       description:
         "Dardanair is a proposed regional airline project aimed at Kosovo, with key European destinations. The project also emphasizes the use of modern, fuel-efficient aircraft to ensure sustainability and environmental responsibility.",
-      technologies: ["Branding", "UI/UX", "3D Modeling"],
-
-      image: "",
+      tags: ["Branding", "UI/UX", "3D Modeling"],
       video: "/dardanair.mp4",
+      studyCase: "/cases/dardanair.pdf",
     },
     {
       title: "Homemade Heaven",
-      href: "https://chatcollect.com",
-
-      active: true,
       description:
         "Homemade Heaven crafts bio juices, sauce and jams from organic, local ingredients. Eachproduct is prepared to ensure the highest quality and flavor for a healthy ambient. ",
-      technologies: ["UI/UX"],
-
-      image: "",
+      tags: ["Print Design"],
       video: "/homemade-heaven.mp4",
     },
   ],
-} as const;
+};
+
+export type Project = {
+  title: string;
+  description: string;
+  tags: readonly string[];
+  link?: string;
+  image?: string;
+  video?: string;
+  studyCase?: string;
+};
+
+export type Resume = {
+  name: string;
+  initials: string;
+  url: string;
+  location: string;
+  locationLink: string;
+  description: string;
+  summary: string;
+  avatarUrl: string;
+  skills: readonly string[];
+  navbar: readonly {
+    href: string;
+    icon: Icon;
+    label: string;
+  }[];
+  contact: {
+    email: string;
+    tel: string;
+    social: {
+      Instagram: {
+        name: string;
+        url: string;
+        icon: Icon;
+        navbar: boolean;
+      };
+      LinkedIn: {
+        name: string;
+        url: string;
+        icon: Icon;
+        navbar: boolean;
+      };
+      X: {
+        name: string;
+        url: string;
+        icon: Icon;
+        navbar: boolean;
+      };
+    };
+  };
+  work: readonly Work[];
+  projects: readonly Project[];
+};
+
+export type Work = {
+  company: string;
+  href: string;
+  badges: readonly string[];
+  location: string;
+  title: string;
+  logoUrl: string;
+  start: string;
+  end: string;
+  description: string;
+};

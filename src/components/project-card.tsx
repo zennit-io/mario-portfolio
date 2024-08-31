@@ -1,24 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import type { Project } from "@/consts/resume";
 import Image from "next/image";
-import Link from "next/link";
-import type { ReactNode } from "react";
 import Markdown from "react-markdown";
 
-type ProjectType = {
-  title: string;
-  description: string;
-  tags: readonly string[];
-  link?: string;
-  image?: string;
-  video?: string;
-  links?: {
-    icon: ReactNode;
-    type: string;
-    href: string;
-  }[];
-};
-
-export type ProjectCardProps = ProjectType & {
+export type ProjectCardProps = Project & {
   className?: string;
 };
 
@@ -29,13 +14,12 @@ export const ProjectCard = ({
   link,
   image,
   video,
-  links,
 }: ProjectCardProps) => {
   return (
     <div
       key={title}
       className={
-        "flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-border pb-3 transition-all duration-300 ease-out hover:shadow-lg"
+        "flex h-full text-left flex-col gap-2 overflow-hidden rounded-xl border border-border pb-3 transition-all duration-300 ease-out hover:shadow-lg"
       }
     >
       {video && (
@@ -60,7 +44,7 @@ export const ProjectCard = ({
 
       <div className="px-3">
         <div className="space-y-1">
-          <h3 className="mt-1 font-semibold text-lg">{title}</h3>
+          <h3 className="mt-1 font-semibold text-lg ">{title}</h3>
           <div className="hidden font-sans text-xs underline print:visible">
             {link?.replace("https://", "").replace("www.", "").replace("/", "")}
           </div>
@@ -80,20 +64,6 @@ export const ProjectCard = ({
           </div>
         )}
       </div>
-      {!!links?.length && (
-        <div className="px-2 pb-2">
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link) => (
-              <Link href={link?.href} key={link.href} target="_blank">
-                <Badge className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
