@@ -104,7 +104,11 @@ const FormSubmitButton = () => {
     }
   }, [isSubmitting, isSubmitSuccessful]);
   return (
-    <FormSubmitButtonPrimitive variant={"primary"} type={"submit"}>
+    <FormSubmitButtonPrimitive
+      variant={"primary"}
+      type={"submit"}
+      color="emphasis"
+    >
       <AnimatePresence mode="wait">
         {isSubmitting ? (
           <motion.div

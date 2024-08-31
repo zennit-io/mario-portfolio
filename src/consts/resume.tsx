@@ -10,7 +10,7 @@ import type { Icon } from "@/types";
 export const RESUME: Resume = {
   name: "Mario Vukzaj",
   initials: "MV",
-  url: "https://mariovukzaj.com",
+  url: "https://www.mariovukzaj.com",
   location: "Tirana, Albania",
   locationLink: "https://maps.app.goo.gl/sAD7H6G6U6Gue9ah7",
   description:

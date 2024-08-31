@@ -39,7 +39,7 @@ export const Navbar = () => {
                     "size-12 capitalize",
                   )}
                 >
-                  <item.icon className="size-4" />
+                  <item.icon className="size-4  text-foreground" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent>{item.label}</TooltipContent>
@@ -60,7 +60,7 @@ export const Navbar = () => {
                       "size-12",
                     )}
                   >
-                    <social.icon className="size-4" />
+                    <social.icon className="size-4 text-foreground" />
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>
