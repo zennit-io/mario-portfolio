@@ -1,5 +1,6 @@
 "use client";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -14,7 +15,7 @@ const d =
 export type SignatureProps = { className?: string };
 export const Signature = ({ className }: SignatureProps) => {
   const ref = useRef<SVGPathElement>(null);
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const isInView = useInView(ref, { once: true });
   const shouldAnimate = isMobile || isInView;
   return (
