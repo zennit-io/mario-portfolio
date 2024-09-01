@@ -152,7 +152,7 @@ export const PhoneInput = ({
         // defaultValue={defaultValue}
         disabled={disabled}
         className={cn(
-          "flex-1 bg-transparent focus:outline-none",
+          "w-full flex-1 bg-transparent focus:outline-none",
           disabled && "cursor-not-allowed",
           classList?.input,
         )}
