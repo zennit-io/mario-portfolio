@@ -37,12 +37,6 @@ export default () => {
                 text={RESUME.description}
               />
             </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={RESUME.name} src={RESUME.avatarUrl} />
-                <AvatarFallback>{RESUME.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
           </div>
         </div>
       </section>

@@ -48,7 +48,11 @@ export const ResumeCard = ({
               {subtitle}
             </h5>
           </div>
-          <h3 className={"ml-auto font-mono text-foreground-dimmed text-sm"}>
+          <h3
+            className={
+              "md:flex hidden ml-auto font-mono text-foreground-dimmed text-sm"
+            }
+          >
             {start} - {end}
           </h3>
         </div>

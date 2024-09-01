@@ -14,8 +14,9 @@ const d =
 export type SignatureProps = { className?: string };
 export const Signature = ({ className }: SignatureProps) => {
   const ref = useRef<SVGPathElement>(null);
+  const isMobile = window.innerWidth <= 768;
   const isInView = useInView(ref, { once: true });
-
+  const shouldAnimate = isMobile || isInView;
   return (
     <svg
       viewBox="0 0 640.64 397.44"
@@ -28,7 +29,7 @@ export const Signature = ({ className }: SignatureProps) => {
         <clipPath id="signature-clip">
           <motion.path
             initial={{ pathLength: 0 }}
-            animate={{ pathLength: isInView ? 1 : 0 }}
+            animate={{ pathLength: shouldAnimate ? 1 : 0 }}
             transition={transition}
             d={d}
           />
@@ -41,7 +42,7 @@ export const Signature = ({ className }: SignatureProps) => {
         stroke="currentColor"
         strokeWidth={2}
         initial={{ pathLength: 0 }}
-        animate={{ pathLength: isInView ? 1 : 0 }}
+        animate={{ pathLength: shouldAnimate ? 1 : 0 }}
         transition={transition}
         d={d}
       />
@@ -54,7 +55,7 @@ export const Signature = ({ className }: SignatureProps) => {
         fill="currentColor"
         clipPath="url(#signature-clip)"
         initial={{ opacity: 0 }}
-        animate={{ opacity: isInView ? 1 : 0 }}
+        animate={{ opacity: shouldAnimate ? 1 : 0 }}
         transition={transition}
       />
     </svg>
