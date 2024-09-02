@@ -18,8 +18,8 @@ const config = {
   fullName: field({
     shape: "text",
     label: "Full Name",
-    constraint: z.number(),
-    type: "number",
+    constraint: z.string(),
+    type: "text",
   }),
   email: field({
     shape: "text",
