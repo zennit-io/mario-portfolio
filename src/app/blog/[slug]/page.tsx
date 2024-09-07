@@ -10,7 +10,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = getAllPosts();
   return posts.map(({ slug }) => ({
     slug,
   }));
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: DynamicRouteProps<"slug">): Promise<Metadata | undefined> {
-  const post = await getPost(params.slug);
+  const post = getPost(params.slug);
 
   const {
     title,

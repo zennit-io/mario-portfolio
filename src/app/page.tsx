@@ -12,7 +12,6 @@ import { RESUME } from "@/consts/resume";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import { DialogOverlay } from "@/components/ui/dialog";
-import Image from "next/image";
 import { XIcon } from "@/icons";
 import { ProjectDialog } from "@/components/project-dialog";
 
